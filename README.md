@@ -1,4 +1,4 @@
-# Challenge #5
+# Challenge #5: Daily Scheduler
 
 ## Description
 
