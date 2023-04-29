@@ -28,7 +28,11 @@ References:
 ## Features
 
 - Local storage utilization
+- Bootstrap
+- FontAwesome
+- Google Fonts
+- JQuery
 
 ## Limitations
 
-- No built-in remote access
+- No built-in cloud/off-site
