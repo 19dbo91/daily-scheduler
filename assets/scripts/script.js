@@ -11,15 +11,39 @@ $(function () {
    * useful when saving the description in local storage?
   */
 
+  //obj.addListener('click',/*fnName*/);
+
   /*// TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
    * HINTS: How can the id attribute of each time-block be used to conditionally add or remove the past, present, and future classes? 
    * How can Day.js be used to get the current hour in 24-hour time?
   */
   
+  /*compareID(){
+    // get timeNow
+    // if ID < timeNow{applyClass(past)}
+    // else if ID == timeNow{applyClass(present)}
+    // else {applyClass(future)}
+  }
+  */
+
+  /*applyClass(){
+    // this component's class will now remove other time class to apply
+  }
+  */
+
   /*// TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
    * HINT: How can the idattribute of each time-block be used to do this?
   */
 
+  /*loadLocalData(){
+
+  }
+  */
+
+  /* updateText(){
+    
+  }
+  */
   // TODO: Add code to display the current date in the header of the page.
 });
 
@@ -27,7 +51,7 @@ $(function () {
 /* Must-Haves (from Acceptance Criteria) : 
  * .: daily planner to create a schedule
  * 
- * on Open:      today's date @top
+ * on open:      today's date @top
  * on scroll-dn: time blocks, standard bus hrs (array?)
  * 
  * timeblock:    color-coded {past, present, future}
