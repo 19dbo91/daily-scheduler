@@ -22,6 +22,8 @@ Navigate to this URL in your preferred browser: <under construction>
 
 STARTER CODE FROM: UCI, Div. of Extd. Studies, Coding Bootcamp
 
+Kim Carpenter
+
 References:
 
 
@@ -32,6 +34,7 @@ References:
 - FontAwesome
 - Google Fonts
 - JQuery
+- DayJS
 
 ## Limitations
 
