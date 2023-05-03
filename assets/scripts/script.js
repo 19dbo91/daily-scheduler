@@ -30,14 +30,22 @@ function p(displayMe){console.log(displayMe);}
 const workDay = {startTime: 9, duration: 8}; // change to appropriate variable shift
 // #endregion
 
-//#region Draw Time Blocks
-const containerID = document.getElementById("container"); p(containerID);
-
+//#region Generic Methods
+function loadData(keyString ){
+  localStorage.getItem(keyString);
+}
+function saveData(keyString, valueString){
+  localStorage.setItem(keyString, valueString);
+}
 function createChildOf(parentObj, childString){
   let child = document.createElement(childString);
   parentObj.appendChild(child);
   return child;
 }
+//#endregion
+
+//#region Draw Time Blocks
+const containerID = document.getElementById("container");
 
 function createTimeBlock(hourNum){
   let timeBlock = createChildOf(containerID, "div");
@@ -59,12 +67,12 @@ function createTimeBlock(hourNum){
   iTag = createChildOf(button,"i");
   iTag.className = "fas fa-save";
   iTag.setAttribute("aria-hidden","true");
-}//forgning presets
-
-for(i=0; i<=workDay.duration;i++){
-  createTimeBlock(workDay.startTime+i); //p(`Drawing ${i+1}th t-block`);
+}
+for(i=0; i<=workDay.duration;i++){//p(Building blocks...);
+  createTimeBlock(workDay.startTime+i);
 }
 //#endregion
+
 
 
 /* Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -73,7 +81,18 @@ for(i=0; i<=workDay.duration;i++){
 */
 
 $(document).ready(function() {
-  /*// TODO: Add a listener for click events on the save button
+  
+  //#region Button 
+  // TODO: Add a listener for click events on the save button
+  $("button").on("click",function(){
+    let parent = $(this).parent();
+    let userText = parent.children("textarea").val();
+    p(parent.id());
+    //p("Storing pair... " + parent.toString() + ":"+ userText);
+  });
+  //#endregion
+
+  /*
    * This code should use the id in the containing time-block as a key to
    * save the user input in local storage.
    * 
@@ -82,6 +101,7 @@ $(document).ready(function() {
    * the button that was clicked? How might the id be 
    * useful when saving the description in local storage?
   */
+
 
 
   // get a specific hour's button
@@ -105,13 +125,6 @@ $(document).ready(function() {
   }
 */
 
-  function loadData(){
-    localStorage.getItem();
-  }
-
-  function saveData(){
-    localStorage.setItem();
-  }
 
   /*// TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
    * HINTS: How can the id attribute of each time-block be used to conditionally add or remove the past, present, and future classes? 
@@ -119,14 +132,6 @@ $(document).ready(function() {
   */
   
 
-  /*
-  console.log(dayjs().isBefore(hour9));
-  
-  if (dayjs().isAfter(hour9)){
-    //make hour nine 9
-    //.addClass FROM jquery
-  }
-  */
 
   /*compareID(){
     // get timeNow
@@ -141,27 +146,24 @@ $(document).ready(function() {
   }
   */
 
-  /*// TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
-   * HINT: How can the idattribute of each time-block be used to do this?
-  */
+  //#region (G/S)etter //TODO(1)
+  // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
+  // ! HINT: How can the id attribute of each time-block be used to do this?
 
-  /*loadLocalData(){
-
-  }
-  */
-
-  /* updateText(){
+  function displayToText(localData){
 
   }
-  */
+  //#endregion
+
   
-  
+  //#region Date Display // // TODO(0)
   // // TODO: Add code to display the current date in the header of the page.
-  
   function displayToday(){
     $('#currentDay').text(dayjs().format('dddd, MMMM D'));
   } //formatting per Mockup: day, month date
+  //#endregion 
 
+  //order of calls
   displayToday();
 });
 
