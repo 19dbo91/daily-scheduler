@@ -50,7 +50,7 @@ const containerID = document.getElementById("container");
 function createTimeBlock(hourNum){
   let timeBlock = createChildOf(containerID, "div");
   timeBlock.id = "hour-"+hourNum;
-  timeBlock.className = "row time-block future";
+  timeBlock.className = "row time-block present";
   
   hour = createChildOf(timeBlock,"div");
   hour.className = "col-2 col-md-1 hour text-center py-3";
@@ -75,87 +75,69 @@ for(i=0; i<=workDay.duration;i++){//p(Building blocks...);
 
 
 
-/* Wrap all code that interacts with the DOM in a call to jQuery to ensure that
- * the code isn't run until the browser has finished rendering all the elements
- * in the html.
+/* Note on jQuery Call
+ * Wrap all code that interacts with the DOM in a call to jQuery to ensure that the code isn't run until the browser has finished rendering all the elements in the html.
 */
 
 $(document).ready(function() {
   
-  //#region Button 
+  //#region Save Button //TODO (1)
   // TODO: Add a listener for click events on the save button
+
   $("button").on("click",function(){
     let parent = $(this).parent();
     let userText = parent.children("textarea").val();
-    p(parent.id());
-    //p("Storing pair... " + parent.toString() + ":"+ userText);
-  });
+    p("Storing pair... ["+parent.attr("id") + " : " + userText+"]");
+    saveData(parent.attr("id"),userText)//p("Storing pair... " + parent.toString() + ":"+ userText);
+  }); //toggle class??
+
+  //! HINTs:
+  // This code should use the id in the containing time-block as a key to save the user input in local storage.
+  // What does `this` reference in the click listener function?
+  // How can DOM traversal be used to get the "hour-x" id of the time-block containing the button that was clicked?
+  // How might the id be useful when saving the description in local storage?
   //#endregion
 
+  //#region Conditional Color-Coding //TODO(1)
+  // TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
+
+  function swapColorCode(selected, oldClass, newClass){
+    if (oldClass.hasClass(oldClass)){
+      selected.removeClass(oldClass);
+      selected.addClass(newClass);
+    }else{p(selected+" does not have "+oldClass);}
+
+  }
+
+  if(){}
+
   /*
-   * This code should use the id in the containing time-block as a key to
-   * save the user input in local storage.
-   * 
-   * HINT: What does `this` reference in the click listener function?
-   * How can DOM traversal be used to get the "hour-x" id of the time-block containing 
-   * the button that was clicked? How might the id be 
-   * useful when saving the description in local storage?
+  if this block time:59:59 is before current time(past)
+   paint it gray
+  if this block time is after current time (future)
+   paint it green
+  else{nothing. code loads present}
   */
 
 
 
-  // get a specific hour's button
-  // add a listener to that
-  // save that hour's value to local storage
-/*CHatGPT
-  var saveBtns = document.querySelectorAll(".saveBtn");
-  
-  for (var i = 0; i < saveBtns.length; i++) {
-    saveBtns[i].addEventListener("click", function(event) {
-      // get the value of the textarea for this button's row
-      p('IN HERE!!');
-      p(i);
-      var row = event.target.parentNode;
-      var textarea = row.querySelector(".description");
-      var text = textarea.value.trim();
-      var storage ="text"+i;
-      p(storage);
-      localStorage.setItem(storage, text);
-    });
-  }
-*/
-
-
-  /*// TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
-   * HINTS: How can the id attribute of each time-block be used to conditionally add or remove the past, present, and future classes? 
-   * How can Day.js be used to get the current hour in 24-hour time?
-  */
-  
-
-
-  /*compareID(){
-    // get timeNow
-    // if ID < timeNow{applyClass(past)}
-    // else if ID == timeNow{applyClass(present)}
-    // else {applyClass(future)}
-  }
-  */
-
-  /*applyClass(){
-    // this component's class will now remove other time class to apply
-  }
-  */
+  //! HINTS:
+  //How can the id attribute of each time-block be used to conditionally add or remove the past, present, and future classes? 
+  //How can Day.js be used to get the current hour in 24-hour time?
+  //#endregion
 
   //#region (G/S)etter //TODO(1)
   // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
-  // ! HINT: How can the id attribute of each time-block be used to do this?
-
+  
   function displayToText(localData){
 
   }
+
+  // ! HINT:
+  //How can the id attribute of each time-block be used to do this?
+
   //#endregion
 
-  
   //#region Date Display // // TODO(0)
   // // TODO: Add code to display the current date in the header of the page.
   function displayToday(){
