@@ -23,6 +23,11 @@
       <!-- Same as above except The "future" class adds a green background color. -->
 */
 
+/* // TODO: Possile improvements
+ * we call functions that iterate through all time blocks; poss saving in
+ */
+
+
 //Debug Printer
 function p(displayMe){console.log(displayMe);}
 
@@ -145,17 +150,18 @@ $(document).ready(function() {
   //How can Day.js be used to get the current hour in 24-hour time?
   //#endregion
 
-  //#region (G/S)etter //TODO(1)
-  // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
+  //#region (G/S)etter // // TODO(0)
+  // // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
   
   function fillBlocks(){
-
+    for(let i =0 ; i <= workDay.duration; i++){
+      let timeblock = $("#container").children().eq(i);
+      let timeID= timeblock.attr("id");
+      let loadedData = localStorage.getItem(timeID);
+      timeblock.children("textarea").text(loadedData);
+      p("Loading content "+timeID+"..."+loadedData);
+    }
   }
-  $()
-  
-
-
-
 
   // ! HINT:
   //How can the id attribute of each time-block be used to do this?
@@ -172,6 +178,7 @@ $(document).ready(function() {
   //order of calls
   displayToday();
   paintBlocks();
+  fillBlocks()
 });
 
 
@@ -192,6 +199,6 @@ $(document).ready(function() {
 
 /* Nice to Haves:
  * Font awseome 
- * on lock/unlock: do a bounce
+ * on other: do a bounce
  * on click event && locked : do a shake
 */
