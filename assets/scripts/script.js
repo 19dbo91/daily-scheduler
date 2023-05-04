@@ -31,7 +31,7 @@ const workDay = {startTime: 9, duration: 8}; // change to appropriate variable s
 // #endregion
 
 //#region Generic Methods
-function loadData(keyString ){
+function loadData(keyString){
   localStorage.getItem(keyString);
 }
 function saveData(keyString, valueString){
@@ -50,7 +50,7 @@ const containerID = document.getElementById("container");
 function createTimeBlock(hourNum){
   let timeBlock = createChildOf(containerID, "div");
   timeBlock.id = "hour-"+hourNum;
-  timeBlock.className = "row time-block present";
+  timeBlock.className = "row time-block";
   
   hour = createChildOf(timeBlock,"div");
   hour.className = "col-2 col-md-1 hour text-center py-3";
@@ -81,15 +81,17 @@ for(i=0; i<=workDay.duration;i++){//p(Building blocks...);
 
 $(document).ready(function() {
   
-  //#region Save Button //TODO (1)
-  // TODO: Add a listener for click events on the save button
+  //#region Save Button // // TODO (0)
+  // // TODO: Add a listener for click events on the save button
 
-  $("button").on("click",function(){
+  $("button").on("click",function(event){
+    event.preventDefault();
     let parent = $(this).parent();
     let userText = parent.children("textarea").val();
     p("Storing pair... ["+parent.attr("id") + " : " + userText+"]");
-    saveData(parent.attr("id"),userText)//p("Storing pair... " + parent.toString() + ":"+ userText);
-  }); //toggle class??
+    saveData(parent.attr("id"),userText);
+    //p("Storing pair... " + parent.toString() + ":"+ userText);
+  }); 
 
   //! HINTs:
   // This code should use the id in the containing time-block as a key to save the user input in local storage.
@@ -98,18 +100,35 @@ $(document).ready(function() {
   // How might the id be useful when saving the description in local storage?
   //#endregion
 
-  //#region Conditional Color-Coding //TODO(1)
-  // TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
+  //#region Conditional Color-Coding // // TODO(0)
+  // // TODO: Add code to apply the past, present, or future class to each time block by comparing the id to the current hour.
 
-  function swapColorCode(selected, oldClass, newClass){
-    if (oldClass.hasClass(oldClass)){
-      selected.removeClass(oldClass);
-      selected.addClass(newClass);
-    }else{p(selected+" does not have "+oldClass);}
+  function checkTense(timeBlock){
+    //let currentHour= parseInt(dayjs().set('hour',8).format("H")); // tester line: block out other current hour
+    let currentHour= parseInt(dayjs().format("H"));
+    let blockHour=parseInt(dayjs().set('hour',timeBlock).format("H"));
 
+
+    if(blockHour > currentHour){
+      return 'future';
+    }
+    else if(blockHour < currentHour){
+      return 'past';
+    }
+    else{
+      return 'present'}
+  };
+
+  function paintBlocks(){
+    for (let i = 0; i<=workDay.duration; i++){
+      let currentBlock=$("#container").children().eq(i);
+      let blockNum = parseInt(currentBlock.attr("id").slice(5));
+      let timeString = checkTense(blockNum);
+      currentBlock.addClass(timeString);
+    }
   }
 
-  if(){}
+
 
   /*
   if this block time:59:59 is before current time(past)
@@ -129,9 +148,14 @@ $(document).ready(function() {
   //#region (G/S)etter //TODO(1)
   // TODO: Add code to get any user input that was saved in localStorage and set the values of the corresponding textarea elements.
   
-  function displayToText(localData){
+  function fillBlocks(){
 
   }
+  $()
+  
+
+
+
 
   // ! HINT:
   //How can the id attribute of each time-block be used to do this?
@@ -142,11 +166,12 @@ $(document).ready(function() {
   // // TODO: Add code to display the current date in the header of the page.
   function displayToday(){
     $('#currentDay').text(dayjs().format('dddd, MMMM D'));
-  } //formatting per Mockup: day, month date
+  }
   //#endregion 
 
   //order of calls
   displayToday();
+  paintBlocks();
 });
 
 
